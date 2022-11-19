@@ -1,26 +1,30 @@
-public class Point {
+//Class with int points, because java class uses doubles
+public class iPoint {
         private int x, y;
 
-        public Point(){
+        public iPoint() {
             x = 0;
             y = 0;
         }
-        public Point( int x, int y){
+
+        public iPoint(int x, int y) {
             this.x = x;
             this.y = y;
         }
-        public void setX(int x){
+
+        public void setX(int x) {
             this.x = x;
         }
 
-        public void setY(int y){
+        public void setY(int y) {
             this.y = y;
         }
-        public int getX(){
+
+        public int getX() {
             return x;
         }
 
-        public int getY(){
+        public int getY() {
             return y;
         }
     }
