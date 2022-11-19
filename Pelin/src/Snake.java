@@ -3,35 +3,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    List<Point> snakePoints;
+    List<iPoint> snakePoints;
     int xDir, yDir;
     boolean isMoving, elongate;
     final int STARTSIZE = 20, STARTX  = 150, STARTY = 150;
 
+    //Constructor
+    //Makes og snake
     public Snake (){
-        snakePoints = new ArrayList<Point>();
+        snakePoints = new ArrayList<iPoint>();
         xDir = 0;
         yDir = 0;
         isMoving = false;
         elongate = false;
-        snakePoints.add(new Point(STARTX, STARTY));
-        for(int i = 0; i < STARTSIZE; i++){
-            snakePoints.add(new Point(STARTX - i * 4, STARTY));
+        snakePoints.add(new iPoint(STARTX, STARTY));
+        for(int i = 1; i < STARTSIZE; i++){
+            snakePoints.add(new iPoint(STARTX - i * 4, STARTY));
         }
     }
-
+    //Color of snake
     public void draw(Graphics g){
         g.setColor(Color.white);
-        for(Point p: snakePoints){
+        for(iPoint p: snakePoints){
             g.fillRect(p.getX(), p.getY(), 4, 4);
         }
     }
-
+    //Moves snake, loops over every point in the snake and update it
     public void move(){
         if(isMoving){
-            Point temp = snakePoints.get(0);
-            Point last = snakePoints.get(snakePoints.size() - 1);
-            Point newStart = new Point(temp.getX() + xDir * 4, temp.getY() + yDir * 4 );
+            iPoint temp = snakePoints.get(0);
+            iPoint last = snakePoints.get(snakePoints.size() - 1);
+            iPoint newStart = new iPoint(temp.getX() + xDir * 4, temp.getY() + yDir * 4 );
             for(int i = snakePoints.size() - 1; i >= 1; i--){
                 snakePoints.set(i, snakePoints.get(i -1));
             }
@@ -43,11 +45,16 @@ public class Snake {
         }
     }
 
-    public boolean snakeCollision() {
-        int x = this.getX();
-        int y = this.getY();
+    //Checks to see if snake runs into itself and ends game
+    public boolean snakeSnakeCollision() {
+
+        int headX = this.getHeadX();
+        int headY = this.getHeadY();
         for (int i = 1; i < snakePoints.size(); i++) {
-            if (snakePoints.get(i).getX() == x && snakePoints.get(i).getY() == y) {
+            int xi = snakePoints.get(i).getX();
+            int yi = snakePoints.get(i).getY();
+
+            if (xi == headX && yi == headY) {
                 return true;
 
             }
@@ -65,26 +72,23 @@ public class Snake {
     public int getxDir(){
         return xDir;
     }
-
     public int getyDir(){
         return yDir;
     }
-
     public void setxDirt(int x){
         xDir = x;
     }
-
     public void setyDirt(int y){
         yDir = y;
     }
-
-    public int getX(){
+    public int getHeadX(){
+        //return snakePoints.get(snakePoints.size() -1).getX();
         return snakePoints.get(0).getX();
 
     }
-    public int getY(){
-        return snakePoints.get(0).getY();
-
+    public int getHeadY(){
+       //return snakePoints.get(snakePoints.size() -1).getY();
+       return snakePoints.get(0).getY();
     }
 
     public void setElongate(boolean b){
