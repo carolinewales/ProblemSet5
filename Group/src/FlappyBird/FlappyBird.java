@@ -29,6 +29,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public boolean gameOver;
     public boolean started;
     public Random rand = new Random();
+    public int highScore = 0;
 
     BufferedImage image;
     public FlappyBird(){
@@ -154,6 +155,11 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             for (Rectangle column : columns){
                 if ((column.y == 0) && (bird.x + bird.width / 2 > column.x + column.width / 2 - 10) && (bird.x + bird.width / 2 < column.x + column.width / 2 + 10)){
                     score++;
+
+                    // Update the high score
+                    if (score > highScore){
+                        highScore = score;
+                    }
                 }
                 // If the bird hits a column
                 if (column.intersects(bird)){
@@ -220,12 +226,17 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             g.drawString("Click to Start!", 75, 400);
         }
 
-        // Display score
+        // Display score and high score
+        g.setFont(new Font ("Arial", Font.BOLD, 50));
         if (!gameOver && started){
-            g.drawString(String.valueOf(score), 375, 100);
+            g.drawString("Score: ", 5, 50);
+            g.drawString(String.valueOf(score), 170, 50);
+            g.drawString("High Score: ", 5, 100);
+            g.drawString(String.valueOf(highScore), 290, 100);
         }
 
         // Message if game ends
+        g.setFont(new Font ("Arial", Font.BOLD, 100));
         if (gameOver) {
             g.drawString("Game Over!", 100, 400);
         }

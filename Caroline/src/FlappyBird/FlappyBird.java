@@ -193,6 +193,10 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         g.setColor(new Color (231, 84, 128));
         g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
+        // Clouds
+        g.setColor(Color.white);
+
+
         // Columns
         for (Rectangle column : columns){
             paintColumn(g, column);
@@ -208,11 +212,14 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         }
 
         // Display score
+        g.setFont(new Font ("Arial", Font.BOLD, 50));
         if (!gameOver && started){
-            g.drawString(String.valueOf(score), 375, 100);
+            g.drawString("Score: ", 5, 50);
+            g.drawString(String.valueOf(score), 170, 50);
         }
 
         // Message if game ends
+        g.setFont(new Font ("Arial", Font.BOLD, 100));
         if (gameOver) {
             g.drawString("Game Over!", 100, 400);
         }
