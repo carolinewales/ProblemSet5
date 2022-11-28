@@ -26,6 +26,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public int coin = 0;
     public Random rand = new Random();
 
+    public Coin coin;
 
     public FlappyBird(){
         // Creates window, makes sure user can't resize it
