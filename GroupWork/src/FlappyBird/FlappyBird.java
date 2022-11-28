@@ -7,16 +7,9 @@
  ***********************************************************************/
 package FlappyBird;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -32,16 +25,8 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public boolean started;
     public Random rand = new Random();
     public int highScore = 0;
-//    ImageIcon img;
-//    {
-//        try {
-//            img = new ImageIcon(new URL("https://www.pngmart.com/files/12/Flappy-Bird-PNG-Image.png"));
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public int coinScore = 0;
 
-    BufferedImage image;
     public FlappyBird(){
         // Creates window, makes sure user can't resize it
         JFrame jframe = new JFrame();
@@ -94,12 +79,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             columns.add(new Column(columns.get(columns.size() - 1).x + 600, 800 - height - 120, width, height));
             columns.add(new Column(columns.get(columns.size() - 1).x, 0, width, 800 - height - space));
         }
-    }
-
-    // Aesthetics for columns
-    public void paintColumn (Graphics g, Rectangle column){
-        g.setColor(Color.green.darker().darker());
-        g.fillRect(column.x, column.y, column.width, column.height);
     }
 
     // Uses mouse/keyboard input to move bird
