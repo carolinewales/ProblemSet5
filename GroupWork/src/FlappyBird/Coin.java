@@ -8,10 +8,25 @@ public class Coin {
     private FlappyBird fb;
 
 
-    public Coin(FlappyBird fb) {
-        x = (int) (Math.random() * 395);
-        y = (int) (Math.random() * 395);
-        this.fb = fb;
+    public Coin() {
+        x = 0;
+        y = 0;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public int getY(){
+        return y;
     }
 
     public void draw(Graphics g) {

@@ -24,7 +24,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public static FlappyBird fb;
     public Renderer renderer;
     public Rectangle bird;
-    public ArrayList<Rectangle> columns;
+    public ArrayList<Column> columns;
     public int ticks;
     public int yMotion;
     public int score = 0;
@@ -32,14 +32,14 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public boolean started;
     public Random rand = new Random();
     public int highScore = 0;
-    ImageIcon img;
-    {
-        try {
-            img = new ImageIcon(new URL("https://www.pngmart.com/files/12/Flappy-Bird-PNG-Image.png"));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    ImageIcon img;
+//    {
+//        try {
+//            img = new ImageIcon(new URL("https://www.pngmart.com/files/12/Flappy-Bird-PNG-Image.png"));
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     BufferedImage image;
     public FlappyBird(){
@@ -87,12 +87,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         int height = 50 + rand.nextInt(300);
 
         if (start) {
-            columns.add(new Rectangle(800 + width + columns.size() * 300, 800 - height - 120, width, height));
-            columns.add(new Rectangle(800 + width + (columns.size() - 1) * 300, 0, width, 800 - height - space));
+            columns.add(new Column(800 + width + columns.size() * 300, 800 - height - 120, width, height));
+            columns.add(new Column(800 + width + (columns.size() - 1) * 300, 0, width, 800 - height - space));
         }
         else {
-            columns.add(new Rectangle(columns.get(columns.size() - 1).x + 600, 800 - height - 120, width, height));
-            columns.add(new Rectangle(columns.get(columns.size() - 1).x, 0, width, 800 - height - space));
+            columns.add(new Column(columns.get(columns.size() - 1).x + 600, 800 - height - 120, width, height));
+            columns.add(new Column(columns.get(columns.size() - 1).x, 0, width, 800 - height - space));
         }
     }
 
@@ -219,14 +219,14 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
 
         // Bird
-        // g.setColor(new Color (231, 84, 128));
+        g.setColor(new Color (231, 84, 128));
         // Trying to create image of bird here
-        g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));
-        // g.fillRect(bird.x, bird.y, bird.width, bird.height);
+        // g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));
+        g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
-        for (Rectangle column : columns){
-            paintColumn(g, column);
+        for (Column column : columns){
+            column.paintColumn(g);
         }
 
         // Setting font and font color
