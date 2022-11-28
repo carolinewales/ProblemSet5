@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FlappyBird extends Coin implements ActionListener, MouseListener, KeyListener {
+public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public static FlappyBird fb;
     public Renderer renderer;
     public Rectangle bird;

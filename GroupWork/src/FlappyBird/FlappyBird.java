@@ -1,9 +1,9 @@
 /**********************************************************************
  * FLAPPYBIRD.java
  * N/A
- * CAROLINE, PELIN, MALLORY< & HENRY
+ * CAROLINE WALES
  * 11/30/22
- * JARYT BUSTARD
+ * JARYT BUSTARD, PELIN BLANTON, MALLORY PITTS, & HENRY HUBBARD
  ***********************************************************************/
 package FlappyBird;
 
@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +32,14 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public boolean started;
     public Random rand = new Random();
     public int highScore = 0;
+    ImageIcon img;
+    {
+        try {
+            img = new ImageIcon(new URL("https://www.pngmart.com/files/12/Flappy-Bird-PNG-Image.png"));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     BufferedImage image;
     public FlappyBird(){
@@ -37,12 +47,13 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         JFrame jframe = new JFrame();
         Timer timer = new Timer (20, this);
 
-        try {
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-            image = ImageIO.read( new File("Group/Flappy-Bird-PNG-Image.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // Making image work
+//        try {
+//            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+//            image = ImageIO.read( new File("Group/Flappy-Bird-PNG-Image.png"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         renderer = new Renderer();
 
@@ -208,9 +219,10 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
 
         // Bird
-        g.setColor(new Color (231, 84, 128));
-        g.drawImage(image,bird.x,bird.y,bird.width,bird.height,);
-        g.fillRect(bird.x, bird.y, bird.width, bird.height);
+        // g.setColor(new Color (231, 84, 128));
+        // Trying to create image of bird here
+        g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));
+        // g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
         for (Rectangle column : columns){
