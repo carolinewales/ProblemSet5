@@ -7,9 +7,14 @@
  ***********************************************************************/
 package FlappyBird;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,12 +29,20 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public boolean gameOver;
     public boolean started;
     public Random rand = new Random();
+    public int highScore = 0;
 
-
+    BufferedImage image;
     public FlappyBird(){
         // Creates window, makes sure user can't resize it
         JFrame jframe = new JFrame();
         Timer timer = new Timer (20, this);
+
+        try {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+            image = ImageIO.read( new File("Group/Flappy-Bird-PNG-Image.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         renderer = new Renderer();
 
@@ -142,6 +155,11 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             for (Rectangle column : columns){
                 if ((column.y == 0) && (bird.x + bird.width / 2 > column.x + column.width / 2 - 10) && (bird.x + bird.width / 2 < column.x + column.width / 2 + 10)){
                     score++;
+
+                    // Update the high score
+                    if (score > highScore){
+                        highScore = score;
+                    }
                 }
                 // If the bird hits a column
                 if (column.intersects(bird)){
@@ -191,11 +209,8 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
         // Bird
         g.setColor(new Color (231, 84, 128));
+        g.drawImage(image,bird.x,bird.y,bird.width,bird.height,  );
         g.fillRect(bird.x, bird.y, bird.width, bird.height);
-
-        // Clouds
-        g.setColor(Color.white);
-
 
         // Columns
         for (Rectangle column : columns){
@@ -211,11 +226,13 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             g.drawString("Click to Start!", 75, 400);
         }
 
-        // Display score
+        // Display score and high score
         g.setFont(new Font ("Arial", Font.BOLD, 50));
         if (!gameOver && started){
             g.drawString("Score: ", 5, 50);
             g.drawString(String.valueOf(score), 170, 50);
+            g.drawString("High Score: ", 5, 100);
+            g.drawString(String.valueOf(highScore), 290, 100);
         }
 
         // Message if game ends
