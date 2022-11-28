@@ -1,8 +1,8 @@
 /**********************************************************************
  * FLAPPYBIRD.java
  * N/A
- * CAROLINE WALES
- * 11/18/22
+ * CAROLINE, PELIN, MALLORY< & HENRY
+ * 11/30/22
  * JARYT BUSTARD
  ***********************************************************************/
 package FlappyBird;
@@ -209,7 +209,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
         // Bird
         g.setColor(new Color (231, 84, 128));
-        g.drawImage(image,bird.x,bird.y,bird.width,bird.height,  );
+        g.drawImage(image,bird.x,bird.y,bird.width,bird.height,);
         g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
