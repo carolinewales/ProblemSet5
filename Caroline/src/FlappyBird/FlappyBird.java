@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FlappyBird implements ActionListener, MouseListener, KeyListener {
+public class FlappyBird extends Coin implements ActionListener, MouseListener, KeyListener {
     public static FlappyBird fb;
     public Renderer renderer;
     public Rectangle bird;
@@ -23,6 +23,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public int score = 0;
     public boolean gameOver;
     public boolean started;
+    public int coin = 0;
     public Random rand = new Random();
 
 
@@ -143,6 +144,9 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
                 if ((column.y == 0) && (bird.x + bird.width / 2 > column.x + column.width / 2 - 10) && (bird.x + bird.width / 2 < column.x + column.width / 2 + 10)){
                     score++;
                 }
+                //if(birdTokenCollision()){
+                   // coin++;
+               // }
                 // If the bird hits a column
                 if (column.intersects(bird)){
                     gameOver = true;
