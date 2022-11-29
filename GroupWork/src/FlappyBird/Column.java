@@ -25,4 +25,10 @@ public class Column extends Rectangle {
             g.fillOval(xc, yc, 50, 50);
         }
     }
+
+    public Rectangle getCoin(){
+        int xc = x + width / 4;
+        int yc = y + height + 65;
+        return new Rectangle(xc, yc, 50, 50);
+    }
 }

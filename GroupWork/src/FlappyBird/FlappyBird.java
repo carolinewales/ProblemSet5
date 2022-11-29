@@ -91,6 +91,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             columns.clear();
             yMotion = 0;
             score = 0;
+            coinScore = 0;
 
             columns = new ArrayList<>();
             addColumn(true);
@@ -142,13 +143,19 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             bird.y += yMotion;
 
             // If the bird successfully passes through columns
-            for (Rectangle column : columns){
+            for (Column column : columns){
                 if ((column.y == 0) && (bird.x + bird.width / 2 > column.x + column.width / 2 - 10) && (bird.x + bird.width / 2 < column.x + column.width / 2 + 10)){
                     score++;
 
                     // Update the high score
                     if (score > highScore){
                         highScore = score;
+                    }
+                    // If a column has a coin, and the bird touches the coin, update coin score
+                    if (column.hasCoin == true){
+                        if (bird.intersects(column.getCoin())){
+                            coinScore++;
+                        }
                     }
                 }
                 // If the bird hits a column
@@ -224,12 +231,17 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             g.drawString(String.valueOf(score), 170, 50);
             g.drawString("High Score: ", 5, 100);
             g.drawString(String.valueOf(highScore), 290, 100);
+            g.drawString("Coin Score: ", 5, 150);
+            g.drawString(String.valueOf(coinScore), 290, 150);
         }
 
         // Message if game ends
         g.setFont(new Font ("Arial", Font.BOLD, 100));
         if (gameOver) {
             g.drawString("Game Over!", 100, 400);
+            g.setFont(new Font ("Arial", Font.BOLD, 75));
+            g.drawString("Total Score: ", 100, 500);
+            g.drawString(String.valueOf(coinScore + score), 550, 500);
         }
     }
 
