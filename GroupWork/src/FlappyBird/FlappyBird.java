@@ -24,7 +24,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     public ArrayList<Column> columns;
     public int ticks;
     public int yMotion;
-    public int score = 0;
     public boolean gameOver;
     public boolean started;
     public Random rand = new Random();
@@ -96,7 +95,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             bird = new Rectangle(400 - 10, 400 - 10, 20, 20);
             columns.clear();
             yMotion = 0;
-            score = 0;
+            totalScore = 0;
             coinScore = 0;
 
             columns = new ArrayList<>();
@@ -151,30 +150,29 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             // If the bird successfully passes through columns
             for (Column column : columns){
                 if ((column.y == 0) && (bird.x + bird.width / 2 > column.x + column.width / 2 - 10) && (bird.x + bird.width / 2 < column.x + column.width / 2 + 10)){
-                    score++;
+                    totalScore++;
 
                     // Update the high score
-                    if (score > highScore){
-                        highScore = score;
+                    if (totalScore > highScore){
+                        highScore = totalScore;
                     }
 
                     // If a column has a coin, and the bird touches the coin, update coin score
                     if (column.hasCoin == true){
                         if (bird.intersects(column.getCoin())) {
                             coinScore++;
+                            totalScore++;
                             // Erases coin if coin is touched
                             column.eraseCoin();
+                            if (totalScore > highScore){
+                                highScore = totalScore;
+                            }
                         }
                     }
                 }
                 // If the bird hits a column
                 if (column.intersects(bird)){
                     gameOver = true;
-
-                    // Updates high score if total score is greater.
-                    if (totalScore > highScore){
-                        highScore = totalScore;
-                    }
 
                     // How the "dead" bird moves
                     if (bird.x <= column.x){
@@ -239,7 +237,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
         g.setFont(new Font ("Arial", Font.BOLD, 50));
         if (!gameOver && started){
             g.drawString("Score: ", 5, 50);
-            g.drawString(String.valueOf(score), 170, 50);
+            g.drawString(String.valueOf(totalScore), 170, 50);
             g.drawString("High Score: ", 5, 150);
             g.drawString(String.valueOf(highScore), 290, 150);
             g.drawString("Coin Score: ", 5, 100);
@@ -252,7 +250,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             g.drawString("Game Over!", 100, 400);
             g.setFont(new Font ("Arial", Font.BOLD, 75));
             g.drawString("Total Score: ", 100, 500);
-            totalScore = coinScore + score;
             g.drawString(String.valueOf(totalScore), 550, 500);
         }
     }
