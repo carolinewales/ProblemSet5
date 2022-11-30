@@ -7,14 +7,14 @@
  ***********************************************************************/
 package FlappyBird;
 
-//import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-//import java.awt.image.BufferedImage;
-//import java.awt.image.ImageObserver;
-//import java.io.File;
-//import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,6 +31,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public Random rand = new Random();
     public int highScore = 0;
     public int coinScore = 0;
+    public BufferedImage image;
 
     public FlappyBird(){
         // Creates window, makes sure user can't resize it
@@ -38,12 +39,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         Timer timer = new Timer (20, this);
 
         // Making image work
-       /* try {
+        try {
             System.out.println("Working Directory = " + System.getProperty("user.dir"));
-            BufferedImage image = ImageIO.read(new File("Group/Flappy-Bird-PNG-Image.png"));
+            image = ImageIO.read(new File("GroupWork/Flappy-Bird-Logo-PNG-File.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         renderer = new Renderer();
 
@@ -158,8 +159,9 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
                     }
                     // If a column has a coin, and the bird touches the coin, update coin score
                     if (column.hasCoin == true){
-                        if (bird.intersects(column.getCoin())){
+                        if (bird.intersects(column.getCoin())) {
                             coinScore++;
+                            column.eraseCoin();
                         }
                     }
                 }
@@ -210,11 +212,11 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
 
         // Bird
-        g.setColor(new Color (231, 84, 128));
+        //g.setColor(new Color (231, 84, 128));
         // Trying to create image of bird here
-        /*ImageIcon img = new ImageIcon();
-        g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));*/
-        g.fillRect(bird.x, bird.y, bird.width, bird.height);
+        //ImageIcon img = new ImageIcon();
+        g.drawImage(image, bird.x,bird.y,(int)(bird.width * 1.5),(int)(bird.height * 1.5),null);
+        //g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
         for (Column column : columns){

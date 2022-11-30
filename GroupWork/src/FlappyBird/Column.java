@@ -31,4 +31,8 @@ public class Column extends Rectangle {
         int yc = y + height + 65;
         return new Rectangle(xc, yc, 50, 50);
     }
+
+    public void eraseCoin() {
+        hasCoin = false;
+    }
 }
