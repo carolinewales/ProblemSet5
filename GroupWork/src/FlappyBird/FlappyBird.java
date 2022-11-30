@@ -7,9 +7,14 @@
  ***********************************************************************/
 package FlappyBird;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,12 +38,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         Timer timer = new Timer (20, this);
 
         // Making image work
-//        try {
-//            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-//            image = ImageIO.read( new File("Group/Flappy-Bird-PNG-Image.png"));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+            BufferedImage image = ImageIO.read(new File("Group/Flappy-Bird-PNG-Image.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         renderer = new Renderer();
 
@@ -205,10 +210,11 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
 
         // Bird
-        g.setColor(new Color (231, 84, 128));
+        //g.setColor(new Color (231, 84, 128));
         // Trying to create image of bird here
-        // g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));
-        g.fillRect(bird.x, bird.y, bird.width, bird.height);
+        ImageIcon img = new ImageIcon();
+        g.drawImage(img.getImage(),bird.x,bird.y,bird.width,bird.height, (ImageObserver) new Color(231, 84, 128));
+        //g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
         for (Column column : columns){
