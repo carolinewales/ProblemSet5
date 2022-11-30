@@ -12,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     public Random rand = new Random();
     public int highScore = 0;
     public int coinScore = 0;
+    public int totalScore = 0;
     public BufferedImage image;
 
     public FlappyBird(){
@@ -168,6 +168,9 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
                 // If the bird hits a column
                 if (column.intersects(bird)){
                     gameOver = true;
+                    if (totalScore > highScore){
+                        highScore = totalScore;
+                    }
 
                     // How the "dead" bird moves
                     if (bird.x <= column.x){
@@ -249,7 +252,8 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
             g.drawString("Game Over!", 100, 400);
             g.setFont(new Font ("Arial", Font.BOLD, 75));
             g.drawString("Total Score: ", 100, 500);
-            g.drawString(String.valueOf(coinScore + score), 550, 500);
+            totalScore = coinScore + score;
+            g.drawString(String.valueOf(totalScore), 550, 500);
         }
     }
 
