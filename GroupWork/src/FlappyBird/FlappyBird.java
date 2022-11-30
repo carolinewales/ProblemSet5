@@ -164,6 +164,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
                             totalScore++;
                             // Erases coin if coin is touched
                             column.eraseCoin();
+                            // Updates high score
                             if (totalScore > highScore){
                                 highScore = totalScore;
                             }
