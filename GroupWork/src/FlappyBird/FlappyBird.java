@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FlappyBird implements ActionListener, MouseListener, KeyListener {
+public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     public static FlappyBird fb;
     public Renderer renderer;
     public Rectangle bird;
@@ -38,7 +38,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         JFrame jframe = new JFrame();
         Timer timer = new Timer (20, this);
 
-        // Making image work
+        // Import bird image
         try {
             System.out.println("Working Directory = " + System.getProperty("user.dir"));
             image = ImageIO.read(new File("GroupWork/Flappy-Bird-Logo-PNG-File.png"));
@@ -157,10 +157,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
                     if (score > highScore){
                         highScore = score;
                     }
+
                     // If a column has a coin, and the bird touches the coin, update coin score
                     if (column.hasCoin == true){
                         if (bird.intersects(column.getCoin())) {
                             coinScore++;
+                            // Erases coin if coin is touched
                             column.eraseCoin();
                         }
                     }
@@ -168,6 +170,8 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
                 // If the bird hits a column
                 if (column.intersects(bird)){
                     gameOver = true;
+
+                    // Updates high score if total score is greater.
                     if (totalScore > highScore){
                         highScore = totalScore;
                     }
@@ -215,11 +219,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
 
         // Bird
-        //g.setColor(new Color (231, 84, 128));
-        // Trying to create image of bird here
-        //ImageIcon img = new ImageIcon();
         g.drawImage(image, bird.x,bird.y,(int)(bird.width * 1.5),(int)(bird.height * 1.5),null);
-        //g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
         // Columns
         for (Column column : columns){
@@ -240,10 +240,10 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
         if (!gameOver && started){
             g.drawString("Score: ", 5, 50);
             g.drawString(String.valueOf(score), 170, 50);
-            g.drawString("High Score: ", 5, 100);
-            g.drawString(String.valueOf(highScore), 290, 100);
-            g.drawString("Coin Score: ", 5, 150);
-            g.drawString(String.valueOf(coinScore), 290, 150);
+            g.drawString("High Score: ", 5, 150);
+            g.drawString(String.valueOf(highScore), 290, 150);
+            g.drawString("Coin Score: ", 5, 100);
+            g.drawString(String.valueOf(coinScore), 290, 100);
         }
 
         // Message if game ends
